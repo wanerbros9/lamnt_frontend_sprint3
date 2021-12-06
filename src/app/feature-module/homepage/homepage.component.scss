@@ -1,0 +1,23 @@
+.btn-detail {
+  background-color: coral;
+  color: white;
+  border-color: white;
+}
+
+.btn-detail:hover, .btn-default:focus, .btn-default:active, .btn-default.active, .open .dropdown-toggle.btn-default {
+  background-color: coral;
+  color: black;
+  border-color: coral;
+}
+
+.btn-default {
+  background-color: transparent;
+  color: coral;
+  border-color: coral;
+}
+
+.btn-default:hover, .btn-default:focus, .btn-default:active, .btn-default.active, .open .dropdown-toggle.btn-default {
+  background-color: coral;
+  color: black;
+  border-color: coral;
+}
