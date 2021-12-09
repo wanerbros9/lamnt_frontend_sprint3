@@ -1,4 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {IFood} from "../../entity/ifood";
+import {ICategory} from "../../entity/icategory";
+import {CategoryService} from "../../core-module/food/category.service";
+import {FoodService} from "../../core-module/food/food.service";
+import {SnackBarService} from "../../core-module/snackbar/snack-bar.service";
+import {MatDialog} from "@angular/material/dialog";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-homepage',
@@ -7,9 +14,122 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomepageComponent implements OnInit {
 
-  constructor() { }
+  foodList: IFood[] | undefined;
+  food: IFood | undefined;
+  categoryList: ICategory[] | undefined;
+  currentPage: number = 0;
+  messError = '';
+  foodName: string = '';
+  foodPrice: number | any;
+  categoryId: number | any = '';
+  oldFoodName: string = '';
+  oldFoodPrice: number | any = '';
+  oldCategoryId: number | any = -1;
+  pageObj: any = {page: 0, size: 6}
+  responsePage: any; //tạo biến để nhận giá trị Observable
+  totalPages: number = 0;
+  totalElement: number = 0;
 
-  ngOnInit(): void {
+  constructor(private categoryService: CategoryService,
+              private foodService: FoodService,
+              private snackBar: SnackBarService,
+              private dialog: MatDialog,
+              private router: Router) {
   }
 
+  ngOnInit(): void {
+    this.getAllCategory();
+    this.getAllFood(this.pageObj);
+    console.log(this.pageObj.page);
+  }
+
+  getAllCategory() {
+    this.categoryService.findAllCategory().subscribe(category => {
+      console.log(category);
+      this.categoryList = category;
+    })
+  }
+
+  getAllFood(pageObj: any) {
+    if ((this.foodName || this.foodPrice || this.categoryId) != null) {
+      if (!(this.foodName == this.oldFoodName && this.foodPrice == this.oldFoodPrice && this.categoryId == this.oldCategoryId)) {
+        this.pageObj.page = 0;
+        console.log('acvv')
+        this.oldFoodName = this.foodName;
+        this.oldFoodPrice = this.foodPrice;
+        this.oldCategoryId = this.categoryId;
+      }
+    }
+    let foodName = this.foodName.trim();
+    this.foodService.viewAllFood(pageObj, foodName, this.foodPrice, this.categoryId).subscribe(data => {
+      console.log(data);
+      this.responsePage = data;
+      console.log(this.responsePage);
+      this.foodList = this.responsePage.content;
+      this.totalPages = this.responsePage.totalPages;
+      this.totalElement = this.responsePage.totalElement;
+    }, error => {
+      if (this.categoryId == 0) {
+        this.foodService.viewAllFoodNoId(pageObj, foodName, this.foodPrice).subscribe(data => {
+          this.responsePage = data;
+          this.foodList = this.responsePage.content;
+          this.totalPages = this.responsePage.totalPages;
+          this.totalElement = this.responsePage.totalElement;
+        }, error => {
+          this.snackBar.showSnackBar("Không tìm thấy danh mục sản phẩm", "error")
+          this.foodName = '';
+          this.foodPrice = '';
+          this.categoryId = '';
+        })
+      } else {
+        this.snackBar.showSnackBar("Không tìm thấy danh mục sản phẩm", "error")
+        this.foodName = '';
+        this.foodPrice = '';
+        this.categoryId = '';
+      }
+    })
+  }
+
+  previousPage() {
+    this.pageObj.page--;
+    if (this.pageObj.page <= 0) {
+      this.pageObj.page = 0;
+    }
+    console.log(this.pageObj)
+    this.getAllFood(this.pageObj)
+  }
+
+  nextPage() {
+    this.pageObj.page = ++this.pageObj.page;
+    if (this.pageObj.page > this.responsePage.totalPages - 1) {
+      this.pageObj.page = this.responsePage.totalPages - 1;
+    }
+    console.log(this.pageObj)
+    this.getAllFood(this.pageObj)
+  }
+
+  getPage(value: string) {
+    if (value == null) {
+      this.snackBar.showSnackBar("Vui lòng nhập số trang cần tìm", 'error');
+    }
+    if (Number(value) <= this.responsePage.totalPages && Number(value) > 0 && Number(value) % 1 == 0) {
+      this.pageObj['page'] = Number(value) - 1
+      console.log(this.pageObj['page'])
+      this.getAllFood(this.pageObj);
+    } else {
+      this.snackBar.showSnackBar("Vui lòng nhập số trang hợp lệ (Tổng số trang: " + this.responsePage.totalPages + ")", 'error');
+    }
+  }
+
+  getFoodName($event: any) {
+    this.foodName = $event.target.value;
+  }
+
+  getFoodPrice($event: any) {
+    this.foodPrice = $event.target.value;
+  }
+
+  getCategoryId($event: any) {
+    this.categoryId = $event.target.value;
+  }
 }

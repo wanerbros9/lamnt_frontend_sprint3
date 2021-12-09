@@ -8,12 +8,16 @@ import {IFood} from "../../entity/ifood";
 })
 export class FoodService {
 
-  url = "http://localhost:8080/api/food"
+  private url = "http://localhost:8080/api/food"
 
   constructor(private http: HttpClient) {
   }
 
-  viewAllFood(pageObj: any, name: string, price: number, id: number): Observable<IFood[] | any> {
-    return this.http.get(`${this.url}/list?page=${pageObj.page}&size=${pageObj.size}&name=${name}&price=${price}&id=${id}`)
+  viewAllFood(pageObj: any, foodName: string, foodPrice: number, categoryId: number): Observable<IFood[] | any> {
+    return this.http.get(`${this.url}/list?page=${pageObj.page}&size=${pageObj.size}&foodName=${foodName}&foodPrice=${foodPrice}&categoryId=${categoryId}`);
+  }
+
+  viewAllFoodNoId(pageObj: any, foodName: string, foodPrice: number): Observable<IFood[] | any> {
+    return this.http.get(`${this.url}/list?page=${pageObj.page}&size=${pageObj.size}&foodName=${foodName}&foodPrice=${foodPrice}`);
   }
 }

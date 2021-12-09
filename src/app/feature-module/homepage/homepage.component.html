@@ -1,444 +1,106 @@
 <div class="container-fluid" style="background-color: #f2f2f2">
   <div class="row">
+    <div class="col-lg-12 text-center">
+      <h1 class="fw-bold mt-2" style="color: coral">Danh sách món</h1>
+    </div>
+  </div>
+  <div class="row d-flex">
+    <div class="col-lg-12 d-flex justify-content-center">
+      <form class="row">
+        <div class="col-lg-3">
+          <label for="foodName" class="form-label">Tên món:</label>
+          <input type="text" id="foodName" class="form-control " placeholder="vd: Bún bò" (change)="getFoodName($event)"
+                 value="{{foodName}}">
+        </div>
+        <div class="col-lg-3">
+          <label for="foodPrice" class="form-label">Giá món:</label>
+          <input type="text" id="foodPrice" class="form-control " placeholder="vd: 15.000" (change)="getFoodPrice($event)"
+                 value="{{foodPrice}}">
+        </div>
+        <div class="col-lg-3">
+          <label for="category" class="form-label">Nhóm món:</label>
+          <br>
+          <select class="form-control" name="" id="category" (change)="getCategoryId($event)">
+            <option selected [value]="0">--Chọn nhóm món--</option>
+            <option *ngFor="let obj of categoryList" [value]="obj.categoryId">
+              {{obj.categoryName}}
+            </option>
+          </select>
+        </div>
+        <div class="col-lg-3" style="margin-top: 28px">
+          <button class="btn btn-detail" (click)="getAllFood(this.pageObj)">
+            Tìm kiếm
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+  <div class="row">
     <div class="col-lg-2"></div>
     <div class="col-lg-8 mt-3">
       <div class="row row-cols-1 row-cols-md-3 g-4">
-        <div class="col">
-          <div class="card">
-            <img src="assets/img/my_xiu.jpeg" class="card-img-top" alt="...">
-            <div class="card-body">
-              <h2 class="card-title mb-3">Mỳ xíu</h2>
-              <a href="#" class="btn btn-default">Đặt món</a>
-              <button type="button" class="btn btn-detail" style="margin-left: 5px" data-bs-toggle="modal"
-                      data-bs-target="#exampleModal">
-                Chi tiết
-              </button>
-              <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
-                   aria-hidden="true">
-                <div class="modal-dialog">
-                  <div class="modal-content">
-                    <div class="modal-header">
-                      <h5 class="modal-title" id="exampleModalLabel">Chi tiết món ăn</h5>
-                      <button type="button" class="btn-close" data-bs-dismiss="modal"
-                              aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                      <table class="table table-borderless">
-                        <tbody>
-                        <tr>
-                          <th scope="row">Tên:</th>
-                          <td>Mỳ xíu</td>
-                        </tr>
-                        <tr>
-                          <th scope="row">Giá (VNĐ):</th>
-                          <td>35.000</td>
-                        </tr>
-                        <tr>
-                          <th scope="row">Mô tả:</th>
-                          <td colspan="2">Sợi mỳ vàng ăn kèm cùng với thịt gà và rau sống</td>
-                        </tr>
-                        </tbody>
-                      </table>
-                    </div>
-                    <div class="modal-footer">
-                      <button type="button" class="btn btn-detail" data-bs-dismiss="modal">
-                        Close
-                      </button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col">
-          <div class="card h-100">
-            <img src="assets/img/com_ga.jpg" class="card-img-top" alt="...">
-            <div class="card-body">
-              <h5 class="card-title">Cơm gà</h5>
-              <p class="card-text">Cơm chiên giòn ăn với gà quay.</p>
-              <a href="#" class="btn btn-primary">Đặt món</a>
-              <button type="button" class="btn btn-primary" data-bs-toggle="modal"
-                      data-bs-target="#exampleModal">
-                Chi tiết món ăn
-              </button>
-              <div class="modal fade" tabindex="-1" aria-labelledby="exampleModalLabel"
-                   aria-hidden="true">
-                <div class="modal-dialog">
-                  <div class="modal-content">
-                    <div class="modal-header">
-                      <h5 class="modal-title">Modal title</h5>
-                      <button type="button" class="btn-close" data-bs-dismiss="modal"
-                              aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                      ...
-                    </div>
-                    <div class="modal-footer">
-                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-                        Close
-                      </button>
-                      <button type="button" class="btn btn-primary">Save changes</button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col">
-          <div class="card h-100">
-            <img src="assets/img/chao_thit.jpeg" class="card-img-top" alt="...">
-            <div class="card-body">
-              <h5 class="card-title">Cháo thịt băm</h5>
-              <p class="card-text">Cháo trắng ăn cùng với thịt băm nhuyễn.</p>
-              <a href="#" class="btn btn-primary">Đặt món</a>
-              <button type="button" class="btn btn-primary" data-bs-toggle="modal"
-                      data-bs-target="#exampleModal">
-                Chi tiết món ăn
-              </button>
-              <div class="modal fade" tabindex="-1" aria-labelledby="exampleModalLabel"
-                   aria-hidden="true">
-                <div class="modal-dialog">
-                  <div class="modal-content">
-                    <div class="modal-header">
-                      <h5 class="modal-title">Modal title</h5>
-                      <button type="button" class="btn-close" data-bs-dismiss="modal"
-                              aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                      ...
-                    </div>
-                    <div class="modal-footer">
-                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-                        Close
-                      </button>
-                      <button type="button" class="btn btn-primary">Save changes</button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col">
-          <div class="card h-100">
-            <img src="assets/img/nem_chua.jpeg" class="card-img-top" alt="...">
-            <div class="card-body">
-              <h5 class="card-title">Nem chua rán</h5>
-              <p class="card-text">Nem chua Hà Nội ăn cùng với tương ớt.</p>
-              <a href="#" class="btn btn-primary">Đặt món</a>
-              <button type="button" class="btn btn-primary" data-bs-toggle="modal"
-                      data-bs-target="#exampleModal">
-                Chi tiết món ăn
-              </button>
-              <div class="modal fade" tabindex="-1" aria-labelledby="exampleModalLabel"
-                   aria-hidden="true">
-                <div class="modal-dialog">
-                  <div class="modal-content">
-                    <div class="modal-header">
-                      <h5 class="modal-title">Modal title</h5>
-                      <button type="button" class="btn-close" data-bs-dismiss="modal"
-                              aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                      ...
-                    </div>
-                    <div class="modal-footer">
-                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-                        Close
-                      </button>
-                      <button type="button" class="btn btn-primary">Save changes</button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col">
-          <div class="card h-100">
-            <img src="assets/img/bun_dau.jpg" class="card-img-top" alt="...">
-            <div class="card-body">
-              <h5 class="card-title">Bún đậu mắm tôm</h5>
-              <p class="card-text">Bún ăn kèm với các loại chả cùng với mắm tôm đặc trưng.</p>
-              <a href="#" class="btn btn-primary">Đặt món</a>
-              <button type="button" class="btn btn-primary" data-bs-toggle="modal"
-                      data-bs-target="#exampleModal">
-                Chi tiết món ăn
-              </button>
-              <div class="modal fade" tabindex="-1" aria-labelledby="exampleModalLabel"
-                   aria-hidden="true">
-                <div class="modal-dialog">
-                  <div class="modal-content">
-                    <div class="modal-header">
-                      <h5 class="modal-title">Modal title</h5>
-                      <button type="button" class="btn-close" data-bs-dismiss="modal"
-                              aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                      ...
-                    </div>
-                    <div class="modal-footer">
-                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-                        Close
-                      </button>
-                      <button type="button" class="btn btn-primary">Save changes</button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col">
-          <div class="card h-100">
-            <img src="assets/img/tra_sua.jpg" class="card-img-top" alt="...">
-            <div class="card-body">
-              <h5 class="card-title">Trà sữa chân châu</h5>
-              <p class="card-text">Trà được nấu chung với sữa uống cùng trân châu đen.</p>
-              <a href="#" class="btn btn-primary">Đặt món</a>
-              <button type="button" class="btn btn-primary" data-bs-toggle="modal"
-                      data-bs-target="#exampleModal">
-                Chi tiết món ăn
-              </button>
-              <div class="modal fade" tabindex="-1" aria-labelledby="exampleModalLabel"
-                   aria-hidden="true">
-                <div class="modal-dialog">
-                  <div class="modal-content">
-                    <div class="modal-header">
-                      <h5 class="modal-title">Modal title</h5>
-                      <button type="button" class="btn-close" data-bs-dismiss="modal"
-                              aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                      ...
-                    </div>
-                    <div class="modal-footer">
-                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-                        Close
-                      </button>
-                      <button type="button" class="btn btn-primary">Save changes</button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col">
-          <div class="card h-100">
-            <img src="assets/img/com_tam_suon.jpg" class="card-img-top" alt="...">
-            <div class="card-body">
-              <h5 class="card-title">Cơm tấm sườn cây</h5>
-              <p class="card-text">Cơm tấm ăn cùng với sườn cây.</p>
-              <a href="#" class="btn btn-primary">Đặt món</a>
-              <button type="button" class="btn btn-primary" data-bs-toggle="modal"
-                      data-bs-target="#exampleModal">
-                Chi tiết món ăn
-              </button>
-              <div class="modal fade" tabindex="-1" aria-labelledby="exampleModalLabel"
-                   aria-hidden="true">
-                <div class="modal-dialog">
-                  <div class="modal-content">
-                    <div class="modal-header">
-                      <h5 class="modal-title">Modal title</h5>
-                      <button type="button" class="btn-close" data-bs-dismiss="modal"
-                              aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                      ...
-                    </div>
-                    <div class="modal-footer">
-                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-                        Close
-                      </button>
-                      <button type="button" class="btn btn-primary">Save changes</button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col">
-          <div class="card h-100">
-            <img src="assets/img/com_tam.jpg" class="card-img-top" alt="...">
-            <div class="card-body">
-              <h5 class="card-title">Cơm tấm sườn bì chả</h5>
-              <p class="card-text">Món ăn đến từ TP.Hồ Chí Minh.</p>
-              <a href="#" class="btn btn-primary">Đặt món</a>
-              <button type="button" class="btn btn-primary" data-bs-toggle="modal"
-                      data-bs-target="#exampleModal">
-                Chi tiết món ăn
-              </button>
-              <div class="modal fade" tabindex="-1" aria-labelledby="exampleModalLabel"
-                   aria-hidden="true">
-                <div class="modal-dialog">
-                  <div class="modal-content">
-                    <div class="modal-header">
-                      <h5 class="modal-title">Modal title</h5>
-                      <button type="button" class="btn-close" data-bs-dismiss="modal"
-                              aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                      ...
-                    </div>
-                    <div class="modal-footer">
-                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-                        Close
-                      </button>
-                      <button type="button" class="btn btn-primary">Save changes</button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col">
-          <div class="card h-100">
-            <img src="assets/img/bun_bo.jpg" class="card-img-top" alt="...">
-            <div class="card-body">
-              <h5 class="card-title">Bún bò Huế</h5>
-              <p class="card-text">Bún ăn kèm cùng rau và thịt bò được nấu theo kiểu Huế.</p>
-              <a href="#" class="btn btn-primary">Đặt món</a>
-              <button type="button" class="btn btn-primary" data-bs-toggle="modal"
-                      data-bs-target="#exampleModal">
-                Chi tiết món ăn
-              </button>
-              <div class="modal fade" tabindex="-1" aria-labelledby="exampleModalLabel"
-                   aria-hidden="true">
-                <div class="modal-dialog">
-                  <div class="modal-content">
-                    <div class="modal-header">
-                      <h5 class="modal-title">Modal title</h5>
-                      <button type="button" class="btn-close" data-bs-dismiss="modal"
-                              aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                      ...
-                    </div>
-                    <div class="modal-footer">
-                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-                        Close
-                      </button>
-                      <button type="button" class="btn btn-primary">Save changes</button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col">
-          <div class="card h-100">
-            <img src="assets/img/tra_dao.jpg" class="card-img-top" alt="...">
-            <div class="card-body">
-              <h5 class="card-title">Trà đào cam sả</h5>
-              <p class="card-text">Vị trà thanh cùng với đào và cam.</p>
-              <a href="#" class="btn btn-primary">Đặt món</a>
-              <button type="button" class="btn btn-primary" data-bs-toggle="modal"
-                      data-bs-target="#exampleModal">
-                Chi tiết món ăn
-              </button>
-              <div class="modal fade" tabindex="-1" aria-labelledby="exampleModalLabel"
-                   aria-hidden="true">
-                <div class="modal-dialog">
-                  <div class="modal-content">
-                    <div class="modal-header">
-                      <h5 class="modal-title">Modal title</h5>
-                      <button type="button" class="btn-close" data-bs-dismiss="modal"
-                              aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                      ...
-                    </div>
-                    <div class="modal-footer">
-                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-                        Close
-                      </button>
-                      <button type="button" class="btn btn-primary">Save changes</button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col">
-          <div class="card h-100">
-            <img src="assets/img/my_quang.jpg" class="card-img-top" alt="...">
-            <div class="card-body">
-              <h5 class="card-title">Mỳ Quảng</h5>
-              <p class="card-text">Sợi mỳ đặc trưng của Quảng Nam ăn cùng với thịt cùng nước mỳ đậm
-                đà.</p>
-              <a href="#" class="btn btn-primary">Đặt món</a>
-              <button type="button" class="btn btn-primary" data-bs-toggle="modal"
-                      data-bs-target="#exampleModal">
-                Chi tiết món ăn
-              </button>
-              <div class="modal fade" tabindex="-1" aria-labelledby="exampleModalLabel"
-                   aria-hidden="true">
-                <div class="modal-dialog">
-                  <div class="modal-content">
-                    <div class="modal-header">
-                      <h5 class="modal-title">Modal title</h5>
-                      <button type="button" class="btn-close" data-bs-dismiss="modal"
-                              aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                      ...
-                    </div>
-                    <div class="modal-footer">
-                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-                        Close
-                      </button>
-                      <button type="button" class="btn btn-primary">Save changes</button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col">
-          <div class="card h-100">
-            <img src="assets/img/banh_my_ga.jpg" class="card-img-top" alt="...">
-            <div class="card-body">
-              <h5 class="card-title">Bánh mỳ gà</h5>
-              <p class="card-text">Thịt gà rôti ăn cùng bánh mỳ giòn tan.</p>
-              <a href="#" class="btn btn-primary">Đặt món</a>
-              <button type="button" class="btn btn-primary" data-bs-toggle="modal"
-                      data-bs-target="#exampleModal">
-                Chi tiết món ăn
-              </button>
-              <div class="modal fade" tabindex="-1" aria-labelledby="exampleModalLabel"
-                   aria-hidden="true">
-                <div class="modal-dialog">
-                  <div class="modal-content">
-                    <div class="modal-header">
-                      <h5 class="modal-title">Modal title</h5>
-                      <button type="button" class="btn-close" data-bs-dismiss="modal"
-                              aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                      ...
-                    </div>
-                    <div class="modal-footer">
-                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-                        Close
-                      </button>
-                      <button type="button" class="btn btn-primary">Save changes</button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
+        <div class="card" *ngFor="let obj of foodList, let i = index">
+          <img [src]=obj.foodImage class="card-img-top" alt="...">
+          <div class="card-body">
+            <h2 class="card-title mb-3">{{obj.foodName}}</h2>
+            <a href="#" class="btn btn-default">Đặt món</a>
+            <button type="button" class="btn btn-detail" style="margin-left: 5px">
+              Chi tiết
+            </button>
           </div>
         </div>
       </div>
+      <div class="col-lg-2"></div>
     </div>
-    <div class="col-lg-2"></div>
+  </div>
+  <div class="row">
+    <div class="col-lg-4"></div>
+    <div class="col-lg-4">
+      <nav aria-label="Pagination">
+        <ul class="pagination">
+          <li class="page-item">
+            <a class="page-link" aria-label="Previous" (click)="previousPage()">
+              <svg xmlns="http://www.w3.org/2000/svg" height="15px" viewBox="0 0 24 24" width="24px" fill="#000000">
+                <path
+                  d="M7 6c.55 0 1 .45 1 1v10c0 .55-.45 1-1 1s-1-.45-1-1V7c0-.55.45-1 1-1zm3.66 6.82l5.77 4.07c.66.47 1.58-.01 1.58-.82V7.93c0-.81-.91-1.28-1.58-.82l-5.77 4.07c-.57.4-.57 1.24 0 1.64z"/>
+              </svg>
+            </a>
+          </li>
+          <li class="page-item">
+            <a class="page-link" aria-label="Next">
+              <span>{{responsePage.pageable.pageNumber + 1}}</span>
+              <span>/</span>
+              <span>{{responsePage.totalPages}}</span>
+            </a>
+          </li>
+          <li class="page-item">
+            <a class="page-link" aria-label="Next" (click)="nextPage()">
+              <span aria-hidden="true">
+                <svg xmlns="http://www.w3.org/2000/svg" height="15px" viewBox="0 0 24 24"
+                     width="24px" fill="#000000"><path
+                  d="M7.58 16.89l5.77-4.07c.56-.4.56-1.24 0-1.63L7.58 7.11C6.91 6.65 6 7.12 6 7.93v8.14c0 .81.91 1.28 1.58.82zM16 7v10c0 .55.45 1 1 1s1-.45 1-1V7c0-.55-.45-1-1-1s-1 .45-1 1z"/></svg>
+              </span>
+            </a>
+          </li>
+          <li class="page-item ml-2">
+            <div class="input-group">
+              <input type="number" min="1" max="{{responsePage.totalPages}}" class="form-control"
+                     placeholder="Tới trang..." style="width: 100px;" #pageInput>
+              <div class="input-group-append">
+                <button class="btn btn-warning" style="height: 38px; padding-top: 2px"
+                        (click)="getPage(pageInput.value)">
+                  <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="#000000">
+                    <path d="M0 0h24v24H0V0z" fill="none"/>
+                    <path
+                      d="M10.09 15.59L11.5 17l5-5-5-5-1.41 1.41L12.67 11H3v2h9.67l-2.58 2.59zM19 3H5c-1.11 0-2 .9-2 2v4h2V5h14v14H5v-4H3v4c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2z"/>
+                  </svg>
+                </button>
+              </div>
+            </div>
+          </li>
+        </ul>
+      </nav>
+    </div>
+    <div class="col-lg-4"></div>
   </div>
 </div>

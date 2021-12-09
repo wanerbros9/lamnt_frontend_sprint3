@@ -14,6 +14,6 @@ export class CategoryService {
   }
 
   findAllCategory(): Observable<ICategory[] | any>{
-    return this.http.get(this.url+'/all')
+    return this.http.get(this.url+'/list')
   }
 }
