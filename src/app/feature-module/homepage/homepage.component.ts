@@ -20,7 +20,7 @@ export class HomepageComponent implements OnInit {
   currentPage: number = 0;
   messError = '';
   foodName: string = '';
-  foodPrice: number | any;
+  foodPrice: number|any = '';
   categoryId: number | any = '';
   oldFoodName: string = '';
   oldFoodPrice: number | any = '';
@@ -35,11 +35,16 @@ export class HomepageComponent implements OnInit {
               private snackBar: SnackBarService,
               private dialog: MatDialog,
               private router: Router) {
+
   }
 
   ngOnInit(): void {
     this.getAllCategory();
-    this.getAllFood(this.pageObj);
+    console.log(this.foodPrice);
+    console.log(this.currentPage);
+    console.log(this.foodName);
+    console.log(this.foodPrice);
+    this.getAllFood(this.currentPage, this.foodName,this.foodPrice, this.categoryId);
     console.log(this.pageObj.page);
   }
 
@@ -50,62 +55,36 @@ export class HomepageComponent implements OnInit {
     })
   }
 
-  getAllFood(pageObj: any) {
-    if ((this.foodName || this.foodPrice || this.categoryId) != null) {
-      if (!(this.foodName == this.oldFoodName && this.foodPrice == this.oldFoodPrice && this.categoryId == this.oldCategoryId)) {
-        this.pageObj.page = 0;
-        console.log('acvv')
-        this.oldFoodName = this.foodName;
-        this.oldFoodPrice = this.foodPrice;
-        this.oldCategoryId = this.categoryId;
-      }
-    }
-    let foodName = this.foodName.trim();
-    this.foodService.viewAllFood(pageObj, foodName, this.foodPrice, this.categoryId).subscribe(data => {
-      console.log(data);
-      this.responsePage = data;
-      console.log(this.responsePage);
-      this.foodList = this.responsePage.content;
-      this.totalPages = this.responsePage.totalPages;
-      this.totalElement = this.responsePage.totalElement;
+  getAllFood(page : number, searchFoodName : string, searchFoodPrice: number, searchCategory: number) {
+    console.log(this.foodPrice);
+    console.log(this.foodName);
+    console.log(this.categoryId);
+    this.foodService.viewAllFood(page, searchFoodName, searchFoodPrice, searchCategory).subscribe( list => {
+      this.foodList = list.content;
+      console.log(list);
+      this.totalPages = list.totalPages;
+      this.currentPage = page;
     }, error => {
-      if (this.categoryId == 0) {
-        this.foodService.viewAllFoodNoId(pageObj, foodName, this.foodPrice).subscribe(data => {
-          this.responsePage = data;
-          this.foodList = this.responsePage.content;
-          this.totalPages = this.responsePage.totalPages;
-          this.totalElement = this.responsePage.totalElement;
-        }, error => {
-          this.snackBar.showSnackBar("Không tìm thấy danh mục sản phẩm", "error")
-          this.foodName = '';
-          this.foodPrice = '';
-          this.categoryId = '';
-        })
-      } else {
-        this.snackBar.showSnackBar("Không tìm thấy danh mục sản phẩm", "error")
-        this.foodName = '';
-        this.foodPrice = '';
-        this.categoryId = '';
+      if (error.status == '404'){
+        this.snackBar.showSnackBar("cos casi loonf tao","error");
       }
     })
   }
 
   previousPage() {
-    this.pageObj.page--;
-    if (this.pageObj.page <= 0) {
-      this.pageObj.page = 0;
+    this.currentPage--;
+    if (this.currentPage <= 0) {
+      this.currentPage = 0;
     }
-    console.log(this.pageObj)
-    this.getAllFood(this.pageObj)
+    this.ngOnInit();
   }
 
   nextPage() {
-    this.pageObj.page = ++this.pageObj.page;
-    if (this.pageObj.page > this.responsePage.totalPages - 1) {
-      this.pageObj.page = this.responsePage.totalPages - 1;
+    this.currentPage++;
+    if (this.currentPage > this.totalPages - 1) {
+      this.currentPage = this.responsePage.totalPages - 1;
     }
-    console.log(this.pageObj)
-    this.getAllFood(this.pageObj)
+    this.ngOnInit();
   }
 
   getPage(value: string) {
@@ -115,7 +94,7 @@ export class HomepageComponent implements OnInit {
     if (Number(value) <= this.responsePage.totalPages && Number(value) > 0 && Number(value) % 1 == 0) {
       this.pageObj['page'] = Number(value) - 1
       console.log(this.pageObj['page'])
-      this.getAllFood(this.pageObj);
+      this.getAllFood(this.currentPage, this.foodName,this.foodPrice, this.categoryId);
     } else {
       this.snackBar.showSnackBar("Vui lòng nhập số trang hợp lệ (Tổng số trang: " + this.responsePage.totalPages + ")", 'error');
     }

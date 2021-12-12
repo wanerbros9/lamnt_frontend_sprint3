@@ -28,7 +28,7 @@
           </select>
         </div>
         <div class="col-lg-3" style="margin-top: 28px">
-          <button class="btn btn-detail" (click)="getAllFood(this.pageObj)">
+          <button class="btn btn-detail" (click)="getAllFood(this.currentPage, this.foodName,this.foodPrice, this.categoryId)">
             Tìm kiếm
           </button>
         </div>
@@ -40,9 +40,10 @@
     <div class="col-lg-8 mt-3">
       <div class="row row-cols-1 row-cols-md-3 g-4">
         <div class="card" *ngFor="let obj of foodList, let i = index">
-          <img [src]=obj.foodImage class="card-img-top" alt="...">
+          <img [src]=obj.foodImage class="card-img-top img-fluid" alt="...">
           <div class="card-body">
             <h2 class="card-title mb-3">{{obj.foodName}}</h2>
+            <p class="card-text">{{obj.foodPrice}} VND</p>
             <a href="#" class="btn btn-default">Đặt món</a>
             <button type="button" class="btn btn-detail" style="margin-left: 5px">
               Chi tiết
@@ -68,9 +69,9 @@
           </li>
           <li class="page-item">
             <a class="page-link" aria-label="Next">
-              <span>{{responsePage.pageable.pageNumber + 1}}</span>
+              <span>{{currentPage + 1}}</span>
               <span>/</span>
-              <span>{{responsePage.totalPages}}</span>
+              <span>{{totalPages}}</span>
             </a>
           </li>
           <li class="page-item">
@@ -84,8 +85,8 @@
           </li>
           <li class="page-item ml-2">
             <div class="input-group">
-              <input type="number" min="1" max="{{responsePage.totalPages}}" class="form-control"
-                     placeholder="Tới trang..." style="width: 100px;" #pageInput>
+              <input type="number" min="1" class="form-control"
+                     placeholder="Tới trang..." style="width: 200px;" #pageInput>
               <div class="input-group-append">
                 <button class="btn btn-warning" style="height: 38px; padding-top: 2px"
                         (click)="getPage(pageInput.value)">

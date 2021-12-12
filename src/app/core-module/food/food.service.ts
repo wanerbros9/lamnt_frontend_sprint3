@@ -13,8 +13,9 @@ export class FoodService {
   constructor(private http: HttpClient) {
   }
 
-  viewAllFood(pageObj: any, foodName: string, foodPrice: number, categoryId: number): Observable<IFood[] | any> {
-    return this.http.get(`${this.url}/list?page=${pageObj.page}&size=${pageObj.size}&foodName=${foodName}&foodPrice=${foodPrice}&categoryId=${categoryId}`);
+  viewAllFood(currentPage: number, foodName: string, foodPrice: number, categoryId: number): Observable<IFood[] | any> {
+    return this.http.get(this.url+'/list?page='+ currentPage
+      +'&foodName='+foodName+'&foodPrice='+foodPrice+'&categoryId='+categoryId);
   }
 
   viewAllFoodNoId(pageObj: any, foodName: string, foodPrice: number): Observable<IFood[] | any> {

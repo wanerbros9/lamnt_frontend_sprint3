@@ -12,7 +12,6 @@ import {HomepageModule} from "./homepage/homepage.module";
 
 @NgModule({
   declarations: [
-
   ],
   imports: [
     CommonModule,
