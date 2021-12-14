@@ -1,9 +1,9 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import {NgModule} from '@angular/core';
+import {CommonModule} from '@angular/common';
 import {SnackbarComponent} from "./snackbar/snackbar.component";
-import { HeaderComponent } from './header/header.component';
-import { FooterComponent } from './footer/footer.component';
-import { DeleteComponent } from './delete/delete.component';
+import {HeaderComponent} from './header/header.component';
+import {FooterComponent} from './footer/footer.component';
+import {DeleteComponent} from './delete/delete.component';
 import {MatDialogModule} from "@angular/material/dialog";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {MatSnackBarModule} from "@angular/material/snack-bar";
@@ -12,8 +12,7 @@ import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
 import {RouterModule} from "@angular/router";
 import {HttpClientModule} from "@angular/common/http";
 import {ShareRoutingModule} from "./share-routing.module";
-import { Page404Component } from './page404/page404.component';
-
+import {Page404Component} from './page404/page404.component';
 
 
 @NgModule({
@@ -25,7 +24,6 @@ import { Page404Component } from './page404/page404.component';
     Page404Component,
   ],
   imports: [
-    CommonModule,
     CommonModule,
     ReactiveFormsModule,
     FormsModule,
@@ -52,9 +50,8 @@ import { Page404Component } from './page404/page404.component';
     RouterModule,
     MatProgressSpinnerModule,
     HttpClientModule,
-    // AngularFireStorageModule,
-    // AngularFireDatabaseModule,
     ShareRoutingModule
   ]
 })
-export class ShareModule { }
+export class ShareModule {
+}

@@ -6,6 +6,7 @@ import { ListFoodComponent } from './list-food/list-food.component';
 import {FoodComponent} from "./food.component";
 import {FoodRoutingModule} from "./food-routing.module";
 import {ShareModule} from "../../share-module/share.module";
+import { DetailFoodComponent } from './detail-food/detail-food.component';
 
 
 
@@ -14,7 +15,8 @@ import {ShareModule} from "../../share-module/share.module";
     FoodComponent,
     CreateFoodComponent,
     UpdateFoodComponent,
-    ListFoodComponent
+    ListFoodComponent,
+    DetailFoodComponent
   ],
   imports: [
     CommonModule,

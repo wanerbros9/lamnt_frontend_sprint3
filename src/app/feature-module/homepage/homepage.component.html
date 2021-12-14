@@ -14,7 +14,8 @@
         </div>
         <div class="col-lg-3">
           <label for="foodPrice" class="form-label">Giá món:</label>
-          <input type="text" id="foodPrice" class="form-control " placeholder="vd: 15.000" (change)="getFoodPrice($event)"
+          <input type="text" id="foodPrice" class="form-control " placeholder="vd: 15.000"
+                 (change)="getFoodPrice($event)"
                  value="{{foodPrice}}">
         </div>
         <div class="col-lg-3">
@@ -28,7 +29,8 @@
           </select>
         </div>
         <div class="col-lg-3" style="margin-top: 28px">
-          <button class="btn btn-detail" (click)="getAllFood(this.currentPage, this.foodName,this.foodPrice, this.categoryId)">
+          <button class="btn btn-detail"
+                  (click)="getAllFood(this.currentPage, this.foodName,this.foodPrice, this.categoryId)">
             Tìm kiếm
           </button>
         </div>
@@ -39,24 +41,24 @@
     <div class="col-lg-2"></div>
     <div class="col-lg-8 mt-3">
       <div class="row row-cols-1 row-cols-md-3 g-4">
-        <div class="card" *ngFor="let obj of foodList, let i = index">
-          <img [src]=obj.foodImage class="card-img-top img-fluid" alt="...">
-          <div class="card-body">
-            <h2 class="card-title mb-3">{{obj.foodName}}</h2>
-            <p class="card-text">{{obj.foodPrice}} VND</p>
-            <a href="#" class="btn btn-default">Đặt món</a>
-            <button type="button" class="btn btn-detail" style="margin-left: 5px">
-              Chi tiết
-            </button>
+        <div class="col" *ngFor="let food of foodList">
+          <div class="card">
+            <img [src]="food.foodImage" class="card-img-top" alt="...">
+            <div class="card-body">
+              <h1 class="card-title">{{food.foodName}}</h1>
+              <p style="font-size: 16px" class="card-text">{{food.foodPrice}} VNĐ</p>
+              <a href="" class="btn btn-default" style="margin-right: 4px">Đặt món</a>
+              <a href="" class="btn btn-detail">Thông tin món</a>
+            </div>
           </div>
         </div>
       </div>
       <div class="col-lg-2"></div>
     </div>
   </div>
-  <div class="row">
+  <div class="row mt-3">
     <div class="col-lg-4"></div>
-    <div class="col-lg-4">
+    <div class="col-lg-4" align="center">
       <nav aria-label="Pagination">
         <ul class="pagination">
           <li class="page-item">
@@ -68,7 +70,7 @@
             </a>
           </li>
           <li class="page-item">
-            <a class="page-link" aria-label="Next">
+            <a class="page-link" aria-label="Next" style="color: black">
               <span>{{currentPage + 1}}</span>
               <span>/</span>
               <span>{{totalPages}}</span>
@@ -88,7 +90,7 @@
               <input type="number" min="1" class="form-control"
                      placeholder="Tới trang..." style="width: 200px;" #pageInput>
               <div class="input-group-append">
-                <button class="btn btn-warning" style="height: 38px; padding-top: 2px"
+                <button class="btn btn-detail" style="height: 38px; padding-top: 2px"
                         (click)="getPage(pageInput.value)">
                   <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="#000000">
                     <path d="M0 0h24v24H0V0z" fill="none"/>

@@ -2,6 +2,7 @@ import {Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {IFood} from "../../entity/ifood";
+import {throwPortalOutletAlreadyDisposedError} from "@angular/cdk/portal/portal-errors";
 
 @Injectable({
   providedIn: 'root'
@@ -14,11 +15,15 @@ export class FoodService {
   }
 
   viewAllFood(currentPage: number, foodName: string, foodPrice: number, categoryId: number): Observable<IFood[] | any> {
-    return this.http.get(this.url+'/list?page='+ currentPage
-      +'&foodName='+foodName+'&foodPrice='+foodPrice+'&categoryId='+categoryId);
+    return this.http.get(this.url + '/list?page=' + currentPage
+      + '&foodName=' + foodName + '&foodPrice=' + foodPrice + '&categoryId=' + categoryId);
   }
 
   viewAllFoodNoId(pageObj: any, foodName: string, foodPrice: number): Observable<IFood[] | any> {
     return this.http.get(`${this.url}/list?page=${pageObj.page}&size=${pageObj.size}&foodName=${foodName}&foodPrice=${foodPrice}`);
+  }
+
+  detailFood(id: number): Observable<IFood | any> {
+    return this.http.get(this.url + '/detail/' + id);
   }
 }

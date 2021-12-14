@@ -1,17 +1,19 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import {NgModule} from '@angular/core';
+import {CommonModule} from '@angular/common';
 import {RouterModule, Routes} from "@angular/router";
 import {FoodComponent} from "./food.component";
 import {ListFoodComponent} from "./list-food/list-food.component";
+import {DetailFoodComponent} from "./detail-food/detail-food.component";
 
 const routes: Routes = [
   {
     path: 'food', component: FoodComponent,
     children: [
-      {path: 'list', component: ListFoodComponent}
+      {path: 'list', component: ListFoodComponent},
+      {path: 'detail/:id', component: DetailFoodComponent}
     ]
-  }
-]
+  },
+];
 
 @NgModule({
   declarations: [],
@@ -21,4 +23,5 @@ const routes: Routes = [
   ],
   exports: [RouterModule]
 })
-export class FoodRoutingModule { }
+export class FoodRoutingModule {
+}

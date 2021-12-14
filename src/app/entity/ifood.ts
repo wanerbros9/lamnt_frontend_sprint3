@@ -7,6 +7,7 @@ export interface IFood {
   foodImage: string;
   deleteFlag: boolean;
   foodPrice: number;
+  foodDescription: string;
   category: ICategory;
   orderDetails: IOrderDetail[];
 }
