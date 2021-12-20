@@ -47,8 +47,10 @@
             <div class="card-body">
               <h1 class="card-title">{{food.foodName}}</h1>
               <p style="font-size: 16px" class="card-text">{{food.foodPrice}} VNĐ</p>
-              <a href="" class="btn btn-default" style="margin-right: 4px">Đặt món</a>
-              <a href="" class="btn btn-detail">Thông tin món</a>
+              <a href="/food/detail/?id" class="btn btn-default" style="margin-right: 4px">Đặt món</a>
+              <button class="btn btn-detail" (click)="detailFood(food.foodId)">
+                Thông tin món
+              </button>
             </div>
           </div>
         </div>

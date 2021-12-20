@@ -20,7 +20,7 @@ export class HomepageComponent implements OnInit {
   currentPage: number = 0;
   messError = '';
   foodName: string = '';
-  foodPrice: number|any = '';
+  foodPrice: number | any = '';
   categoryId: number | any = '';
   oldFoodName: string = '';
   oldFoodPrice: number | any = '';
@@ -44,7 +44,7 @@ export class HomepageComponent implements OnInit {
     console.log(this.currentPage);
     console.log(this.foodName);
     console.log(this.foodPrice);
-    this.getAllFood(this.currentPage, this.foodName,this.foodPrice, this.categoryId);
+    this.getAllFood(this.currentPage, this.foodName, this.foodPrice, this.categoryId);
     console.log(this.pageObj.page);
   }
 
@@ -55,18 +55,18 @@ export class HomepageComponent implements OnInit {
     })
   }
 
-  getAllFood(page : number, searchFoodName : string, searchFoodPrice: number, searchCategory: number) {
+  getAllFood(page: number, searchFoodName: string, searchFoodPrice: number, searchCategory: number) {
     console.log(this.foodPrice);
     console.log(this.foodName);
     console.log(this.categoryId);
-    this.foodService.viewAllFood(page, searchFoodName, searchFoodPrice, searchCategory).subscribe( list => {
+    this.foodService.viewAllFood(page, searchFoodName, searchFoodPrice, searchCategory).subscribe(list => {
       this.foodList = list.content;
       console.log(list);
       this.totalPages = list.totalPages;
       this.currentPage = page;
     }, error => {
-      if (error.status == '404'){
-        this.snackBar.showSnackBar("cos casi loonf tao","error");
+      if (error.status == '404') {
+        this.snackBar.showSnackBar("cos casi loonf tao", "error");
       }
     })
   }
@@ -94,7 +94,7 @@ export class HomepageComponent implements OnInit {
     if (Number(value) <= this.responsePage.totalPages && Number(value) > 0 && Number(value) % 1 == 0) {
       this.pageObj['page'] = Number(value) - 1
       console.log(this.pageObj['page'])
-      this.getAllFood(this.currentPage, this.foodName,this.foodPrice, this.categoryId);
+      this.getAllFood(this.currentPage, this.foodName, this.foodPrice, this.categoryId);
     } else {
       this.snackBar.showSnackBar("Vui lòng nhập số trang hợp lệ (Tổng số trang: " + this.responsePage.totalPages + ")", 'error');
     }
@@ -110,5 +110,16 @@ export class HomepageComponent implements OnInit {
 
   getCategoryId($event: any) {
     this.categoryId = $event.target.value;
+  }
+
+  detailFood(foodId: number) {
+    // @ts-ignore
+    for (let food of this.foodList) {
+      if (food.foodId == foodId) {
+        this.router.navigate(['food/detail/' + foodId]);
+        return;
+      }
+    }
+    this.snackBar.showSnackBar("Không tìm thấy món", "error")
   }
 }

@@ -3,6 +3,7 @@ import {IFood} from "../../../entity/ifood";
 import {ActivatedRoute, ParamMap, Router} from "@angular/router";
 import {FoodService} from "../../../core-module/food/food.service";
 import {ICategory} from "../../../entity/icategory";
+import {CategoryService} from "../../../core-module/food/category.service";
 
 @Component({
   selector: 'app-detail-food',
@@ -16,7 +17,16 @@ export class DetailFoodComponent implements OnInit {
 
   constructor(private activateRoute: ActivatedRoute,
               private foodService: FoodService,
+              private categoryService: CategoryService,
               private router: Router) {
+  }
+
+  ngOnInit(): void {
+    this.getFoodDetail();
+    this.getAllCategory();
+  }
+
+  getFoodDetail() {
     this.activateRoute.paramMap.subscribe((paramMap: ParamMap) => {
       // @ts-ignore
       const id = +paramMap.get('id');
@@ -26,8 +36,10 @@ export class DetailFoodComponent implements OnInit {
     });
   }
 
-  ngOnInit(): void {
+  getAllCategory() {
+    this.categoryService.findAllCategory().subscribe(category => {
+      console.log(category);
+      this.categoryList = category;
+    })
   }
-
-  getCategoryList(){}
 }

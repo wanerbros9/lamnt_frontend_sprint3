@@ -1,50 +1,24 @@
-<div class="container">
-  <div class="row justify-content-center">
-    <div class="card " style="width: 60%">
-      <h3 style=" background-color: #1BB1DC ; color: white" class=" card-header text-center ">Thông tin món ăn</h3>
-      <div style="background-color: #f5f8fd" class="card-body">
-        <div class="row">
-          <div class="col-3">
-            <div class="card">
-              <img [src]="food?.foodImage" class="img-fluid" alt="">
-            </div>
+<div class="container-fluid" style="background-color: #f2f2f2;">
+  <div class="row pt-5">
+    <div class="col-lg-1"></div>
+    <div class="col-lg-10" align="center">
+      <div class="card mb-3" style="max-width: 900px">
+        <div class="row g-0">
+          <h2 style="background-color: coral">Thông tin món ăn</h2>
+          <div class="col-md-4">
+            <img [src]="food?.foodImage" class="img-fluid rounded-start" alt="...">
           </div>
-          <div class="col-9">
-            <div class="card">
-              <div class="card-body">
-                <table class="table-borderless table-hover" width="100%">
-
-                  <tr>
-                    <th>Tên món</th>
-                    <td>:</td>
-                    <td>{{food?.foodName}}</td>
-                  </tr>
-                  <tr>
-                    <th>Giá món</th>
-                    <td>:</td>
-                    <td>{{food?.foodPrice}}</td>
-                  </tr>
-                  <tr>
-                    <th>Nhóm món</th>
-                    <td>:</td>
-                    <td>{{food?.category}}</td>
-                  </tr>
-                </table>
-              </div>
+          <div class="col-md-8">
+            <div class="card-body" align="left">
+              <div class="fw-bold card-text">Tên món : <span class="fw-normal">{{food?.foodName}}</span></div>
+              <div class="fw-bold card-text">Nhóm món : <span class="fw-normal">{{food?.category?.categoryName}}</span></div>
+              <div class="fw-bold card-text">Mô tả món : <span class="fw-normal">{{food?.foodDescription}}</span></div>
+              <div class="fw-bold card-text">Giá : <span class="fw-normal">{{food?.foodPrice}}</span></div>
             </div>
           </div>
         </div>
       </div>
-<!--      <div style="background-color: #f5f8fd" class="card-footer text-center" (click)="quayLai()">-->
-<!--        <button style="background-color: #1bb1dc; color: white" class="btn btn-primary" role="button">-->
-<!--          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"-->
-<!--               class="bi bi-arrow-return-left" viewBox="0 0 16 16">-->
-<!--            <path fill-rule="evenodd"-->
-<!--                  d="M14.5 1.5a.5.5 0 0 1 .5.5v4.8a2.5 2.5 0 0 1-2.5 2.5H2.707l3.347 3.346a.5.5 0 0 1-.708.708l-4.2-4.2a.5.5 0 0 1 0-.708l4-4a.5.5 0 1 1 .708.708L2.707 8.3H12.5A1.5 1.5 0 0 0 14 6.8V2a.5.5 0 0 1 .5-.5z"/>-->
-<!--          </svg>-->
-<!--          Quay lại-->
-<!--        </button>-->
-<!--      </div>-->
     </div>
+    <div class="col-lg-1"></div>
   </div>
 </div>
